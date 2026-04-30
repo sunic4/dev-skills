@@ -9,7 +9,7 @@ type: architecture
 status: accepted
 title: "{ADR 标题}"
 depends_on:
-  - "road-map/{slug}.md"
+  - "{project-path}/wiki/road-map/{slug}.md"
 created: "YYYY-MM-DD HH:MM"
 updated: "YYYY-MM-DD HH:MM"
 stale: false
@@ -21,7 +21,7 @@ stale: false
 
 ## 背景
 {为什么需要做这个决策？当前的问题或驱动力是什么？}
-{引用需求约束：来自 `road-map/{slug}.md` 的哪些约束驱动了此决策}
+{引用需求约束：来自 `{project-path}/wiki/road-map/{slug}.md` 的哪些约束驱动了此决策}
 
 ## 决策
 {最终选择了什么方案？一句话概括}
@@ -34,7 +34,7 @@ stale: false
 {这个决策带来的好处}
 
 ### 负面影响 / 风险
-{需要付出的代价或需要注意的风险}
+{量化代价：涉及文件数/模块数/数据量/API变更数；具体风险及触发条件}
 
 ### 影响范围
 {哪些代码/模块会受影响}
@@ -43,7 +43,7 @@ stale: false
 {此决策依赖哪些前提假设？如何验证？}
 
 ## 可逆性评估
-{此决策是否可逆？回退成本多大？}
+{此决策是否可逆？回退涉及的量化指标：文件数/模块数/数据量/API数/Schema变更}
 ```
 
 ## 模块设计 (`modules/{slug}-module.md`)
@@ -55,7 +55,7 @@ type: architecture
 status: accepted
 title: "{模块名} 模块设计"
 depends_on:
-  - "road-map/{slug}.md"
+  - "{project-path}/wiki/road-map/{slug}.md"
 created: "YYYY-MM-DD HH:MM"
 updated: "YYYY-MM-DD HH:MM"
 stale: false

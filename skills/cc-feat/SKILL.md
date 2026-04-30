@@ -45,7 +45,7 @@ triggers: [特性, 功能开发, 实现, 编码, design, impl, accept, 开发]
 
 当 `origin_type: origin_spike` 时，cc-feat **直接继承** spike 的已验证结论，无需重新验证：
 
-1. **读取 spike 文档**: 从 `spikes/{spike-slug}-spike.md` 提取"可复用结论"章节
+1. **读取 spike 文档**: 从 `{project-path}/wiki/spikes/{spike-slug}-spike.md` 提取"可复用结论"章节
 2. **写入 design.md**: 在"实现要点"中引用 spike 结论，标注 `[spike-validated]`
 3. **跳过重复验证**: cc-review 遇到 `[spike-validated]` 标注的项，跳过该技术可行性审查
 4. **约束必须遵守**: spike 发现的"实现约束"必须在 impl 中严格遵守
@@ -53,7 +53,7 @@ triggers: [特性, 功能开发, 实现, 编码, design, impl, accept, 开发]
 **design.md 引用格式**:
 ```markdown
 ### 要点: {标题}
-- 方案可行性: [spike-validated] {spike结论摘要} (见 spikes/{slug}-spike.md)
+- 方案可行性: [spike-validated] {spike结论摘要} (见 {project-path}/wiki/spikes/{slug}-spike.md)
 - 实现约束: {来自spike的约束}
 ```
 
@@ -66,7 +66,7 @@ triggers: [特性, 功能开发, 实现, 编码, design, impl, accept, 开发]
 ### feat-design 技术设计
 
 **输入**: REQ + ARCH 文档 (或 origin_fix/origin_refactor/origin_spike 替代 REQ)  
-**输出**: `features/{slug}YYYYMMDDHHMM/{slug}-design.md` + `impl-checklist.yaml`
+**输出**: `{project-path}/wiki/features/{slug}YYYYMMDDHHMM/{slug}-design.md` + `impl-checklist.yaml`
 
 design.md 必须包含:
 1. 实现思路概述
@@ -103,7 +103,7 @@ design.md 必须包含:
 | 需求不清 | ↩ 回退 cc-req 补充具体缺失点 |
 | 设计不可行 | ↩ 回退 feat-design 修改 |
 | 发现 bug | → 分支创建 issue |
-| 发现好模式 | → 写 kb/raw/ 记录 pattern (不中断主流程) |
+| 发现好模式 | → 写 {project-path}/wiki/kb/raw/ 记录 pattern (不中断主流程) |
 
 **设计-实现小循环** (迭代是常态):
 
@@ -169,7 +169,7 @@ must_have:
 
 | 项目 | 格式 | 时机 |
 |------|------|------|
-| Feature 目录 | `features/{slug}YYYYMMDDHHMM/` | design开始 |
+| Feature 目录 | `{project-path}/wiki/features/{slug}YYYYMMDDHHMM/` | design开始 |
 | 设计文档 | `{slug}-design.md` | feat-design完成 |
 | 进度追踪 | `impl-checklist.yaml` | design创建，impl持续更新 |
 | 审查报告 | `{slug}-review-report.yaml` | accept后由review-generate.mjs生成 |

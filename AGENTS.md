@@ -10,27 +10,28 @@ dev-skills 是一套结构化开发工作流技能体系，通过清晰的职责
 
 | 技能 | 用途 | 输出位置 |
 |------|------|---------|
-| **cc-init** | 项目初始化 | `raw/` + `codestyle.md` + `AGENTS.md` |
-| **cc-req** | 需求收集/分析/规划 | `road-map/` |
-| **cc-arch** | 架构设计 + ADR | `arch/` |
-| **cc-feat** | 特性开发 (design→impl→accept) | `features/` |
-| **cc-fix** | Bug修复 (report→analyze→fix) | `issues/` |
-| **cc-review** | 五轴代码审查 | `features/*/review-report.yaml` |
-| **cc-kb** | 知识沉淀整理 | `kb/` |
-| **cc-retro** | 项目复盘与技能评估 | `kb/raw/` + retro report |
+| **cc-init** | 项目初始化 | `{project-path}/wiki/raw/` + `codestyle.md` + `AGENTS.md` |
+| **cc-req** | 需求收集/分析/规划 | `{project-path}/wiki/road-map/` |
+| **cc-arch** | 架构设计 + ADR | `{project-path}/wiki/arch/` |
+| **cc-feat** | 特性开发 (design→impl→accept) | `{project-path}/wiki/features/` |
+| **cc-fix** | Bug修复 (report→analyze→fix) | `{project-path}/wiki/issues/` |
+| **cc-review** | 五轴代码审查 | `{project-path}/wiki/features/*/review-report.yaml` |
+| **cc-kb** | 知识沉淀整理 | `{project-path}/wiki/kb/` |
+| **cc-retro** | 项目复盘与技能评估 | `{project-path}/wiki/kb/raw/` + retro report |
 
 ---
 
 ## Wiki 结构
 
 ```
-wiki/
+{project-path}/wiki/
 ├── raw/                  # 原始输入
 ├── road-map/             # 需求文档 (cc-req)
 ├── arch/                 # 架构设计 (cc-arch, overview + adrs + modules)
 ├── features/             # 特性开发 (cc-feat)
 ├── issues/               # 问题修复 (cc-fix)
 ├── kb/                   # 知识库 (cc-kb)
+├── tools/                # 工具脚本 (cc-init 安装)
 └── spikes/               # 技术验证 (cc-arch spike)
 ```
 
@@ -73,7 +74,7 @@ id/type/depends_on/created/updated/stale  # 自动推断或生成
 
 ### G0: 目录自建
 
-- 任何技能写入 wiki/ 子目录时，目录不存在则自动创建
+- 任何技能写入 `{project-path}/wiki/` 子目录时，目录不存在则自动创建
 - 无需等待 cc-init 或 cc-arch 先行创建
 
 ### G1: 反重复输出
@@ -135,7 +136,7 @@ triggers: []             # 触发关键词列表，增强隐式触发准确性
 每个技能必须明确其产出位置，遵循以下规则：
 
 - 技能产出目录与技能名对应，不可混用
-- 决策类产物（如架构决策、功能设计）必须写入对应 wiki 子目录
+- 决策类产物（如架构决策、功能设计）必须写入对应 `{project-path}/wiki/` 子目录
 - 产出文件须包含完整的 frontmatter 元数据
 - 技能退出前必须自检：产出清单是否齐全？
 
@@ -156,7 +157,7 @@ triggers: []             # 触发关键词列表，增强隐式触发准确性
 
 #### 上下文交接协议
 
-- 技能完成后，关键决策和中间产物写入目标 wiki 目录
+- 技能完成后，关键决策和中间产物写入目标 `{project-path}/wiki/` 目录
 - 使用 frontmatter 的 `status` / `stale` 标记文档状态
 - 下游技能读取时若发现 `stale: true`，**必须**先同步再继续
 - 交接时须明确传递：决策结论、待解决问题、依赖假设
@@ -182,6 +183,7 @@ triggers: []             # 触发关键词列表，增强隐式触发准确性
 {skill-name}/
 ├── SKILL.md                # 必需（含 YAML frontmatter + Markdown 指令）
 ├── scripts/                # 可选（可执行脚本，优先 mjs 跨平台）
-├── references/             # 可选（参考文档、模板）
+├── references/             # 可选（参考文档）
+├── templates/             # 可选（参考模板）
 └── assets/                 # 可选（模板、图片等资源）
 ```

@@ -1,14 +1,24 @@
 #!/usr/bin/env node
 
 import { mkdirSync, writeFileSync, existsSync, readdirSync, copyFileSync } from 'fs';
-import { resolve, relative } from 'path';
+import { resolve, relative, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const SELF = fileURLToPath(import.meta.url);
+const SCRIPTS_DIR = dirname(SELF);
+
+const TOOL_SCRIPTS = [
+  'init-wiki-dirs.mjs',
+  'read-yaml.mjs',
+  'review-generate.mjs',
+  'scan-project.mjs',
+  'validate-yaml.mjs',
+  'yaml-utils.mjs'
+];
 
 const DIRS = [
   { path: 'wiki/tools', owner: 'cc-init' },
-  { path: 'wiki/raw/inputs', owner: 'cc-req' },
+  { path: 'wiki/raw/', owner: 'cc-req' },
   { path: 'wiki/raw/research', owner: 'cc-arch' },
   { path: 'wiki/raw/references', owner: 'cc-arch' },
   { path: 'wiki/road-map', owner: 'cc-req' },
@@ -53,18 +63,24 @@ function touchGitKeep(dirPath) {
   }
 }
 
-function installSelf(targetRoot) {
+function installTools(targetRoot) {
   const toolsDir = resolve(targetRoot, 'wiki/tools');
   ensureDir(toolsDir);
-  const target = resolve(toolsDir, 'init-wiki-dirs.mjs');
 
-  if (existsSync(target)) {
-    console.log(`[SKIP] wiki/tools/init-wiki-dirs.mjs already exists`);
-    return;
+  for (const script of TOOL_SCRIPTS) {
+    const target = resolve(toolsDir, script);
+    if (existsSync(target)) {
+      console.log(`[SKIP] wiki/tools/${script} already exists`);
+      continue;
+    }
+    const source = resolve(SCRIPTS_DIR, script);
+    if (!existsSync(source)) {
+      console.log(`[WARN] Source not found: ${script}`);
+      continue;
+    }
+    copyFileSync(source, target);
+    console.log(`[OK] Installed: wiki/tools/${script}`);
   }
-
-  copyFileSync(SELF, target);
-  console.log(`[OK] Installed: wiki/tools/init-wiki-dirs.mjs`);
 }
 
 function listWikiContents(root) {
@@ -115,7 +131,7 @@ function main() {
     touchGitKeep(fullPath);
   }
 
-  installSelf(root);
+  installTools(root);
 
   console.log('\n=== Done! Directory structure ===\n');
   listWikiContents(root);

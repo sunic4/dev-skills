@@ -101,7 +101,7 @@ issues:
       Why 2: cc-feat/SKILL.md 的规模原则不够突出
       Why 3: 缺乏自动化的规模检测提示
       根本原因: 需要在设计阶段增加规模预检
-    suggestion: "在 cc-feat design 阶段增加规模预估步骤"
+    suggestion: "在 cc-feat design 阶段增加规模量化检视步骤"
     status: pending
   - id: I2
     category: tool_bug
@@ -119,7 +119,7 @@ issues:
 improvements:
   - priority: high
     target: cc-feat/SKILL.md
-    action: "在 design 阶段增加规模预估和拆分建议"
+    action: "在 design 阶段增加规模量化检视和拆分建议"
     assignee: "技能维护者"
     due_date: "2026-05-01"
   - priority: medium
@@ -137,15 +137,15 @@ knowledge_captured:
   - title: "JWT 刷新令牌的最佳实践"
     category: pattern
     source: "cc-arch - 2026-04-10"
-    location: "kb/patterns/jwt-refresh-token.md"
+    location: "{project-path}/wiki/kb/patterns/jwt-refresh-token.md"
   - title: "避免在 useEffect 中直接使用 state"
     category: lesson
     source: "cc-fix - 2026-04-15"
-    location: "kb/raw/20260415-1430-useeffect-state.md"
+    location: "{project-path}/wiki/kb/raw/20260415-1430-useeffect-state.md"
   - title: "React Query 缓存失效时机"
     category: lesson
     source: "cc-feat - 2026-04-20"
-    location: "kb/raw/20260420-0930-react-query-cache.md"
+    location: "{project-path}/wiki/kb/raw/20260420-0930-react-query-cache.md"
 
 previous_retrospect_actions:
   - action: "补充 security 技能的 Layer 2 检查项"
@@ -156,7 +156,7 @@ previous_retrospect_actions:
     completed_at: "2026-04-08"
 
 next_actions:
-  - "在 cc-feat design 阶段增加规模预估步骤"
+  - "在 cc-feat design 阶段增加规模量化检视步骤"
   - "将 2 条 raw 知识条目整理到正式目录"
   - "安排下次复盘时间：2026-05-10"
 ```

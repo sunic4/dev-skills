@@ -18,10 +18,10 @@ triggers: [架构, 技术选型, 系统设计, ADR, 接口定义, 技术决策]
 ## 前置检查
 
 ### ✅ 必须满足（任一）
-- [ ] 有对应的 REQ 文档 (`road-map/{slug}.md` 存在且 `status ≠ deprecated`)
+- [ ] 有对应的 REQ 文档 (`{project-path}/wiki/road-map/{slug}.md` 存在且 `status ≠ deprecated`)
 - [ ] 用户明确的设计目标 + 足够的需求上下文
 
-### ⚠️ wiki/ 不存在时
+### ⚠️ {project-path}/wiki/ 不存在时
 1. 按 G0 规则自动创建所需子目录
 2. 提示用户建议后续执行 `cc-init`
 
@@ -34,7 +34,7 @@ triggers: [架构, 技术选型, 系统设计, ADR, 接口定义, 技术决策]
 
 ### Step 1: 技术调研（如需要）
 
-仅当涉及不熟悉的技术时进行，输出到 `raw/research/{topic}.md`
+仅当涉及不熟悉的技术时进行，输出到 `{project-path}/wiki/raw/research/{topic}.md`
 
 **静默执行规则**:
 - 调研期间**禁止输出过渡性文字**（如"让我先调研"、"正在调研"等）
@@ -85,7 +85,7 @@ C) 全部采用推荐 — 跳过讨论，直接采用所有推荐方案
 
 ```
 用户确认: "选择 Signal-based"
-→ 立即写入 `arch/adrs/{slug}.md`
+→ 立即写入 `{project-path}/wiki/arch/adrs/{slug}.md`
 → 更新进度清单: 1. ✅ 响应式系统 — Signal-based (已确认+已持久化)
 → 进入下一个决策点
 ```
@@ -155,7 +155,7 @@ ADR 已在 Step 3 逐项持久化，此处只需生成其余文档:
 ```yaml
 ---
 id: "{slug}"  type: architecture  status: accepted
-title: "{标题}"  depends_on: ["road-map/{slug}.md"]
+title: "{标题}"  depends_on: ["{project-path}/wiki/road-map/{slug}.md"]
 created: "YYYY-MM-DD HH:MM"  updated: "YYYY-MM-DD HH:MM"  stale: false
 ---
 ```
@@ -179,11 +179,11 @@ created: "YYYY-MM-DD HH:MM"  updated: "YYYY-MM-DD HH:MM"  stale: false
 
 ```
 📋 cc-arch 产出检查：
-- [ ] `raw/research/{topic}.md` — 技术调研 (如执行了 Step 1)
-- [ ] `arch/adrs/{slug}.md` — 每个 ADR (逐项已持久化)
-- [ ] `arch/overview.md` — 系统总览
-- [ ] `arch/modules/{name}-module.md` — 模块设计 (如需要)
-- [ ] `arch/shared-types.md` — 共享类型 (如需要)
+- [ ] `{project-path}/wiki/raw/research/{topic}.md` — 技术调研 (如执行了 Step 1)
+- [ ] `{project-path}/wiki/arch/adrs/{slug}.md` — 每个 ADR (逐项已持久化)
+- [ ] `{project-path}/wiki/arch/overview.md` — 系统总览
+- [ ] `{project-path}/wiki/arch/modules/{name}-module.md` — 模块设计 (如需要)
+- [ ] `{project-path}/wiki/arch/shared-types.md` — 共享类型 (如需要)
 ```
 
 **禁止空退出**: 如果有决策点已确认但 ADR 未写入，必须补写后才能退出。
@@ -209,17 +209,17 @@ ARCH 文档被修改时:
 2. 结果: 选择了什么及理由
 3. 后果: 正面影响、负面影响、风险
 4. 验证假设: 依赖哪些前提？如何验证？
-5. 可逆性评估: 是否可逆？回退成本？
+5. 可逆性评估: 是否可逆？回退涉及哪些量化指标（文件数/模块数/数据量/API数/Schema变更）？
 
 > ADR 只记录最终确认的决策，不保留备选方案。
 
 ### 可逆性分类
 
-| 类别 | 回退成本 | 建议 |
+| 类别 | 量化指标 | 建议 |
 |------|---------|------|
-| 可逆 | < 1天 | 可大胆尝试 |
-| 部分可逆 | 1-5天 | 需要原型验证 |
-| 不可逆 | >5天 或 数据迁移 | 必须 PoC 验证 |
+| 可逆 | ≤3文件，≤1模块，无数据迁移 | 可大胆尝试 |
+| 部分可逆 | 4-10文件或2-3模块或结构化数据迁移 | 需要原型验证 |
+| 不可逆 | >10文件或>3模块或非结构化数据迁移或Schema不可兼容变更 | 必须 PoC 验证 |
 
 ### ADR 状态流转
 ```
@@ -290,7 +290,7 @@ accepted → implemented → superseded → deprecated
 
 ### Step 3: 结论记录
 
-输出到 `spikes/{slug}-spike.md`：
+输出到 `{project-path}/wiki/spikes/{slug}-spike.md`：
 
 ```markdown
 ---
@@ -350,7 +350,7 @@ created: "YYYY-MM-DD HH:MM"  updated: "YYYY-MM-DD HH:MM"  stale: false
 
 spike 验证通过后，结论通过以下方式传递给 cc-feat，**避免重复验证**：
 
-1. **spike 文档即凭证**: `spikes/{slug}-spike.md` 中 `status: validated` + `validated_by: spike` 是验证凭证
+1. **spike 文档即凭证**: `{project-path}/wiki/spikes/{slug}-spike.md` 中 `status: validated` + `validated_by: spike` 是验证凭证
 2. **可复用结论章节**: spike 文档的"可复用结论"章节是 feat 直接引用的事实源
 3. **feat design.md 引用**: feat 在实现要点中标注 `[spike-validated]`，cc-review 据此跳过可行性审查
 4. **约束必须遵守**: spike 发现的"实现约束"是 feat impl 的硬性约束，违反则 feat-accept 不通过

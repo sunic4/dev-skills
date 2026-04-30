@@ -63,7 +63,7 @@ triggers: [bug, 修复, 报错, 异常, 崩溃, 问题, 出错, debug]
 
 ### issue-report 问题报告
 
-**输出**: `issues/{slug}-report.md`
+**输出**: `{project-path}/wiki/issues/{slug}-report.md`
 
 frontmatter 格式：
 ```yaml
@@ -91,7 +91,7 @@ stale: false
 
 ### issue-analyze 根因分析
 
-**输出**: `issues/{slug}-analysis.md` (可选，非显然时才创建)
+**输出**: `{project-path}/wiki/issues/{slug}-analysis.md` (可选，非显然时才创建)
 
 **分析方法**:
 
@@ -157,7 +157,7 @@ reported → analyzing → fixing → fixed → closed
 | reported → analyzing | 信息足够开始排查 |
 | analyzing → fixing | 根因已定位，方案已确定 |
 | fixing → fixed | 代码已提交，回归检查通过 |
-| fixed → closed | 确认无复发，写 kb/raw/ 记录 lesson |
+| fixed → closed | 确认无复发，写 {project-path}/wiki/kb/raw/ 记录 lesson |
 | any → reopened | 问题复现或修复不完整 |
 
 ### Reopened 流程
@@ -186,7 +186,7 @@ reopen_reasons:
 | 修复范围超出边界 | → 转为 `feat` | 在 depends_on 中关联 ISS-ID |
 | 修复涉及需求变更 | → 更新 `road-map` | 同步 road-map 文档的 frontmatter |
 | 修复涉及架构调整 | → 调用 `arch` | 记录 ADR |
-| 修复后有普遍性教训 | → **写 kb/raw/** (见 cc-kb Raw 写入规范) | 写 lesson |
+| 修复后有普遍性教训 | → **写 {project-path}/wiki/kb/raw/** (见 cc-kb Raw 写入规范) | 写 lesson |
 | 修复后需完整验收 | → **可选触发 `feat-accept`** | 跑完整流程 |
 
 ---
@@ -239,6 +239,6 @@ reopen_reasons:
 
 | 项目 | 格式 |
 |------|------|
-| 报告文档 | `issues/{slug}-report.md` (含 frontmatter) |
-| 分析文档 | `issues/{slug}-analysis.md` (可选) |
+| 报告文档 | `{project-path}/wiki/issues/{slug}-report.md` (含 frontmatter) |
+| 分析文档 | `{project-path}/wiki/issues/{slug}-analysis.md` (可选) |
 | ID 命名 | kebab-case 语义化名, 如 login-timeout / null-pointer-crash / memory-leak |

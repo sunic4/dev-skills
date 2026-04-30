@@ -1,6 +1,6 @@
 # Feat Design 文档结构
 
-以下为 `features/{slug}YYYYMMDDHHMM/{slug}-design.md` 的标准章节结构。
+以下为 `{project-path}/wiki/features/{slug}YYYYMMDDHHMM/{slug}-design.md` 的标准章节结构。
 
 ```markdown
 ---
@@ -9,8 +9,8 @@ type: feature
 status: designing
 title: "{标题}"
 depends_on:
-  - "road-map/{slug}.md"
-  - "arch/adrs/{slug}.md"
+  - "{project-path}/wiki/road-map/{slug}.md"
+  - "{project-path}/wiki/arch/adrs/{slug}.md"
 created: "YYYY-MM-DD HH:MM"
 updated: "YYYY-MM-DD HH:MM"
 stale: false
@@ -36,7 +36,7 @@ stale: false
 *(此表同步写入 impl-checklist.yaml)*
 
 ## 接口与类型引用
-> 跨模块接口类型引用 `arch/shared-types.md`，不在此私自定义。
+> 跨模块接口类型引用 `{project-path}/wiki/arch/shared-types.md`，不在此私自定义。
 > 仅本模块内部使用的类型可在此定义。
 
 ### 引用的共享类型
@@ -49,7 +49,7 @@ stale: false
 ```
 
 ## 数据流
-> 仅描述本模块内部的数据流转。跨模块数据流引用 `arch/shared-types.md` 和 road-map 接口契约。
+> 仅描述本模块内部的数据流转。跨模块数据流引用 `{project-path}/wiki/arch/shared-types.md` 和 {project-path}/wiki/road-map 接口契约。
 {关键数据流转过程，ASCII 图或步骤描述}
 
 ```
@@ -89,7 +89,7 @@ stale: false
 2. {边界场景 2}
 
 ## 风险与依赖
-| 风险 | 影响 | 缓解措施 |
+| 风险 | 量化影响 | 缓解措施 |
 |------|------|---------|
 | ... | ... | ... |
 ```

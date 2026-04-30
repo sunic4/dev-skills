@@ -37,7 +37,7 @@ triggers: [需求, 功能需求, 用户故事, 需求分析, 需求文档]
 ### Step 1: 原始输入 + 去重
 
 ```
-用户描述 → `raw/inputs/{slug}YYYYMMDDHHMMSS.md`
+用户描述 → `{project-path}/wiki/raw/input_{slug}.md`
 ```
 
 深挖前检查已有需求：完全相同→提示更新；部分重叠→用户决定合并/拆分/独立；无重叠→正常继续。
@@ -85,7 +85,7 @@ P2（可以有）: 手机验证码登录、记住登录状态
 
 ### Step 4: 输出需求文档
 
-输出到 `road-map/{slug}.md`
+输出到 `{project-path}/wiki/road-map/{slug}.md`
 
 Frontmatter:
 ```yaml
@@ -133,7 +133,7 @@ stale: false
 | 职责 | 一句话描述 |
 | 边界 | 输入/输出/不做什么 |
 | 依赖 | 依赖哪些其他模块 |
-| 复杂度 | high / medium / low |
+| 复杂度 | 接口数/数据表数/外部依赖数 |
 | 风险点 | 已识别的技术风险 |
 
 ### 核心能力
@@ -159,7 +159,7 @@ stale: false
 
 ### Step 5: 拆子 Feature 清单
 
-生成 `road-map/{slug}.yaml`:
+生成 `{project-path}/wiki/road-map/{slug}.yaml`:
 
 ```yaml
 features:
@@ -167,7 +167,7 @@ features:
     title: "标题"
     priority: p0              # p0(阻塞) / p1(重要) / p2(优化)
     depends_on: []            # 同需求内的其他 feat id
-    estimated_files: 5        # 预估文件数
+    scope_files: 5           # 涉及文件数
     modules: ["auth", "db"]   # 涉及模块
     status: todo              # todo | doing | done | skipped
 
@@ -197,7 +197,7 @@ shared_tasks:
 
 ### Step 6: 输出结构
 
-输出到 `road-map/{slug}.md` + `{slug}.yaml`
+输出到 `{project-path}/wiki/road-map/{slug}.md` + `{slug}.yaml`
 
 ```markdown
 ---
@@ -230,7 +230,7 @@ stale: false
 | Phase 2 | 完善体验 | feat-c, feat-d | 生产可用 |
 
 ## 风险与缓解
-| 风险 | 影响 | 缓解措施 |
+| 风险 | 量化影响 | 缓解措施 |
 ```
 
 ---
@@ -279,9 +279,9 @@ REQ 特有传播规则:
 
 | 项目 | 格式 |
 |------|------|
-| 原始输入 | `raw/inputs/{slug}YYYYMMDDHHMMSS.md` |
-| 需求文档 | `road-map/{slug}.md` (含 frontmatter) |
-| 子feature清单 | `road-map/{slug}.yaml` (复杂需求时) |
+| 原始输入 | `{project-path}/wiki/raw/{slug}.md` |
+| 需求文档 | `{project-path}/wiki/road-map/{slug}.md` (含 frontmatter) |
+| 子feature清单 | `{project-path}/wiki/road-map/{slug}.yaml` (复杂需求时) |
 | ID 命名 | kebab-case 语义化 |
 
 ## 常见问题

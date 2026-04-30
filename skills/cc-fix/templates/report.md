@@ -1,6 +1,6 @@
 # Issue Report 文档结构
 
-以下为 `issues/{slug}-report.md` 的标准章节结构。
+以下为 `{project-path}/wiki/issues/{slug}-report.md` 的标准章节结构。
 
 ```markdown
 ---

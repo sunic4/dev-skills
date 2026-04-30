@@ -17,13 +17,13 @@ triggers: [复盘, 回顾, 总结, retro, 改进, 迭代总结]
 
 ### Step 1: 数据收集
 
-扫描 `wiki/` 目录，统计各技能产出文件数、状态分布。
+扫描 `{project-path}/wiki/` 目录，统计各技能产出文件数、状态分布。
 
 **升级统计维度**（新增）:
 
 | 维度 | 数据源 | 价值 |
 |------|--------|------|
-| 各技能使用次数 | wiki/ 各目录文件数 | 基础覆盖度 |
+| 各技能使用次数 | {project-path}/wiki/ 各目录文件数 | 基础覆盖度 |
 | **各技能跳过率和原因** | 用户反馈 + 流程中断点 | 流程优化依据 |
 | **端到端周期时间** | road-map created → FEAT done 的时间差 | 流程效率指标 |
 | **回退次数** | design.md 中"设计变更记录"的数量 | 需求/设计质量指标 |
@@ -52,7 +52,7 @@ triggers: [复盘, 回顾, 总结, retro, 改进, 迭代总结]
 
 **流程衔接检查方法**:
 1. 读取 AGENTS.md § 标准工作流，确定当前项目应走的流程
-2. 扫描 wiki/ 各目录，对比实际产出与流程预期产出
+2. 扫描 {project-path}/wiki/ 各目录，对比实际产出与流程预期产出
 3. 缺失环节标记为"流程断裂"，分析原因（不知晓/跳过/不适用）
 
 > 代码质量审计不是 retro 的职责。如需评估代码质量，引用 **cc-review** 技能的结论。
@@ -75,7 +75,7 @@ triggers: [复盘, 回顾, 总结, retro, 改进, 迭代总结]
 
 ### Step 4: 生成报告
 
-输出 `retro/retroYYYYMMDDHHMM.yaml`：
+输出 `{project-path}/wiki/retro/retroYYYYMMDDHHMM.yaml`：
 
 ```yaml
 meta:
@@ -117,12 +117,12 @@ next_actions:
 **只写 raw，不生成半正式条目**（整理是 kb 技能的职责）。
 
 > **与 cc-kb 的边界厘清**（新增）:
-> - retro 发现的"流程改进经验" → 写入 `raw/`，category 标记为 `lesson`
-> - retro 发现的"通用反模式" → 写入 `raw/`，category 标记为 `pattern`
+> - retro 发现的"流程改进经验" → 写入 `{project-path}/wiki/kb/raw/`，category 标记为 `lesson`
+> - retro 发现的"通用反模式" → 写入 `{project-path}/wiki/kb/raw/`，category 标记为 `pattern`
 > - retro **不写 decision 类型**（那属于 cc-arch ADR 的职责）
 > - 与 kb 已有 lesson 重复的内容，在 raw 中标注 `see_also: {已有条目}`，由 kb 整理时合并
 
-将有价值经验写入 `kb/raw/{type}-{slug}YYYYMMDDHHMM.md`：
+将有价值经验写入 `{project-path}/wiki/kb/raw/{type}-{slug}YYYYMMDDHHMM.md`：
 - 流程改进经验、工具技巧、常见问题解决方案
 - 有代码示例的踩坑教训
 - 复盘中发现的问题根因和改进措施
@@ -138,14 +138,14 @@ next_actions:
 | 改进项类型 | 转化为 | 追踪方式 |
 |----------|--------|---------|
 | 技能定义改进 | 修改对应 SKILL.md | 下次 retro 检查是否已修改 |
-| 流程不适配 | 创建新的 cc-req 需求 | 在 `road-map/` 中追踪 |
-| 工具 Bug | 创建 issue | 在 `issues/` 中追踪 |
-| 知识缺失 | 写 kb/raw/ 补充 | 检查 `kb/` 是否已补充 |
+| 流程不适配 | 创建新的 cc-req 需求 | 在 `{project-path}/wiki/road-map/` 中追踪 |
+| 工具 Bug | 创建 issue | 在 `{project-path}/wiki/issues/` 中追踪 |
+| 知识缺失 | 写 {project-path}/wiki/kb/raw/ 补充 | 检查 `{project-path}/wiki/kb/` 是否已补充 |
 
 **强制闭环机制**:
 1. 本次 retro 的改进项，写入 `next_actions` 时**必须标注责任人**（用户/技能/工具）
 2. **下次 retro Step 2 时**，自动检查上次 `next_actions` 的完成情况
-3. 连续 2 次未完成的改进项 → 升级为 issue（写入 `issues/`）
+3. 连续 2 次未完成的改进项 → 升级为 issue（写入 `{project-path}/wiki/issues/`）
 
 ```yaml
 # retrospect-report.yaml 中 next_actions 增强格式
@@ -180,7 +180,7 @@ next_actions:
 | 技能 | 关系 |
 |------|------|
 | AGENTS.md | 参照标准工作流，检查流程衔接是否正确 |
-| cc-kb | **写入 raw/**（仅原始记录），不越权生成正式条目 |
+| cc-kb | **写入 {project-path}/wiki/kb/raw/**（仅原始记录），不越权生成正式条目 |
 | cc-review | **引用 cc-review 结论**评估代码质量，不做重复审计 |
 | cc-init | 检查 AGENTS.md 索引完整性 |
 

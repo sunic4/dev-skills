@@ -1,6 +1,6 @@
 # Req 输出文档结构
 
-以下为 `road-map/{slug}.md` 的标准章节结构。
+以下为 `{project-path}/wiki/road-map/{slug}.md` 的标准章节结构。
 
 ```markdown
 ---

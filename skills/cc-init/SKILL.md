@@ -26,7 +26,7 @@ triggers: [初始化, 新项目, 项目设置, codestyle, 项目规范]
 
 如有 REQ/ARCH 文档，合并其技术约束和决策，优先级: ARCH > road-map > 自动检测。
 
-记录检测结果到 `raw/project-tech-stack.yaml`:
+记录检测结果到 `{project-path}/wiki/raw/project-tech-stack.yaml`:
 ```yaml
 language: typescript
 framework: react
@@ -93,7 +93,7 @@ source: auto_detected  # auto_detected / user_specified
 
 | 项目 | 路径 |
 |------|------|
-| 技术栈记录 | `raw/project-tech-stack.yaml` |
+| 技术栈记录 | `{project-path}/wiki/raw/project-tech-stack.yaml` |
 | 代码规范 | `codestyle.md` 或 `AGENTS.md` 的「关键约定」章节 |
 | 智能体指南 | `AGENTS.md` |
 

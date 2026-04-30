@@ -102,7 +102,7 @@ node wiki/tools/read-yaml.mjs `features/{slug}/impl-checklist.yaml` --summary
 ```
 node wiki/tools/review-generate.mjs --feature {slug}
 ```
-输出: `features/{slug}/review-report.yaml`
+输出: `{project-path}/wiki/features/{slug}/review-report.yaml`
 
 **Verdict 判定与后续行动**:
 
