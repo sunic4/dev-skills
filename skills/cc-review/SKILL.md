@@ -1,6 +1,7 @@
 ---
 name: "cc-review"
-description: "五轴代码审查：correctness/security/performance/maintainability/test_coverage。"
+description: "五轴代码审查。正确性/安全/性能/可维护/测试覆盖。"
+triggers: [审查, review, 代码审查, PR, 代码评审]
 ---
 
 # Review - 代码审查
@@ -71,6 +72,7 @@ node wiki/tools/read-yaml.mjs `features/{slug}/impl-checklist.yaml` --summary
 - 异常捕获/错误信息/fallback
 - 数据一致性 (原子更新/副作用可控)
 - API契约符合 arch 定义
+- **Spike 结论继承**: design.md 中标注 `[spike-validated]` 的技术可行性项，跳过可行性审查，仅检查实现是否与 spike 结论一致
 
 **Axis 2: Security** (增量传递: 读取 impl-checklist security_check 字段跳过已通过项)
 
@@ -102,14 +104,14 @@ node wiki/tools/review-generate.mjs --feature {slug}
 ```
 输出: `features/{slug}/review-report.yaml`
 
-**Verdict 判定**:
+**Verdict 判定与后续行动**:
 
-| 条件 | verdict |
-|------|---------|
-| 所有轴≥4 且无 must finding | **approved** → 完成 |
-| 有 should 但无 must | **request_changes** → 修复后可完成 |
-| 有 must finding | **request_changes** → 必须修复 re-review |
-| correctness<2 或 security must | **rejected** → 打回重做 |
+| 条件 | verdict | 后续行动 |
+|------|---------|---------|
+| 所有轴≥4 且无 must finding | **approved** | → 流程完成，可发布 |
+| 有 should 但无 must | **request_changes** | → 回 cc-feat-impl 修复 should 项，修复后 re-review |
+| 有 must finding | **request_changes** | → 回 cc-feat-impl 修复 must 项，修复后 re-review |
+| correctness<2 或 security must | **rejected** | → 回 cc-feat-design 重新设计，重新走 impl→accept→review |
 
 ---
 

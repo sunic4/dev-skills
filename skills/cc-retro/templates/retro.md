@@ -73,12 +73,12 @@ transitions:
     to: cc-feat
     count: 4
     issues: 0
-    notes: "正确路由"
+    notes: "正确衔接"
   - from: cc-req
     to: cc-arch
     count: 1
     issues: 0
-    notes: "JWT 认证需求正确路由到 arch"
+    notes: "JWT 认证需求正确衔接到 arch"
   - from: cc-arch
     to: cc-feat
     count: 1
@@ -123,7 +123,7 @@ improvements:
     assignee: "技能维护者"
     due_date: "2026-05-01"
   - priority: medium
-    target: cc/SKILL.md
+    target: cc-feat/SKILL.md
     action: "增加'重构'相关的意图识别关键词"
     assignee: "技能维护者"
     due_date: "2026-05-05"

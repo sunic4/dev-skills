@@ -1,6 +1,7 @@
 ---
 name: "cc-init"
-description: "项目初始化。生成 codestyle.md 和 AGENTS.md，建立项目规范。"
+description: "项目初始化。生成codestyle.md和AGENTS.md。"
+triggers: [初始化, 新项目, 项目设置, codestyle, 项目规范]
 ---
 
 # Init - 项目初始化
@@ -23,7 +24,7 @@ description: "项目初始化。生成 codestyle.md 和 AGENTS.md，建立项目
 | 构建工具 | 配置文件 (vite.config/tsconfig.json) |
 | 测试/质量工具 | ESLint/Prettier/Ruff/Clippy 配置 |
 
-如有 REQ/ARCH 文档，合并其技术约束和决策，优先级: ARCH > REQ > 自动检测。
+如有 REQ/ARCH 文档，合并其技术约束和决策，优先级: ARCH > road-map > 自动检测。
 
 记录检测结果到 `raw/project-tech-stack.yaml`:
 ```yaml
@@ -110,4 +111,4 @@ source: auto_detected  # auto_detected / user_specified
 | 已有 codestyle.md/AGENTS.md | 不覆盖，只标注待确认项 |
 | 技术栈检测置信度低 | 标注 `{需人工确认}`，询问用户 |
 | 模板不存在 | 用最接近的模板 + 标注 `{需人工补充}` |
-| 用户有冲突要求 | 优先 ARCH > REQ > 自动检测 |
+| 用户有冲突要求 | 优先 ARCH > road-map > 自动检测 |

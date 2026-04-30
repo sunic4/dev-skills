@@ -1,6 +1,7 @@
 ---
 name: "cc-feat"
-description: "特性设计与实现。需求→设计→编码→验收。含 design/impl/accept 三子流程。"
+description: "特性设计与实现。需求→设计→编码→验收。"
+triggers: [特性, 功能开发, 实现, 编码, design, impl, accept, 开发]
 ---
 
 # Feat - 特性开发
@@ -27,8 +28,8 @@ description: "特性设计与实现。需求→设计→编码→验收。含 de
 1. **上游 stale 检查**: REQ/ARCH 任一 `stale=true` 则暂停
 2. **冲突检测**: Grep `status: designing` + `status: implementing` → files.path 重叠则警告（design 阶段即检测，不等到 impl）
 3. **依赖顺序**: `depends_on` 引用的 FEAT 未完成则等待
-4. **Roadmap 上下文** (关联时): 用 read-yaml 提取 priority/depends_on + 接口契约
-5. **接口合规** (多模块时): design 接口须与 roadmap 定义对齐
+4. **Road-map 上下文** (关联时): 用 read-yaml 提取 priority/depends_on + 接口契约
+5. **接口合规** (多模块时): design 接口须与 road-map 定义对齐
 6. **入口来源验证** (非 REQ 驱动时): 以下任一即可替代 REQ 作为前置条件
 
 ### 入口来源类型
@@ -40,7 +41,23 @@ description: "特性设计与实现。需求→设计→编码→验收。含 de
 | `origin_refactor` | 重构/技术债 | 无硬性前置，但须在 design.md 说明重构动机和预期收益 | `origin_refactor: true` + `refactor_motivation:` |
 | `origin_spike` | Spike 验证后实现 | spike 文档存在且 status=validated | `origin_spike: "{spike-slug}"` |
 
-> 非 REQ 驱动的 feat 在 feat-accept 通过后，不更新 REQ status (因为没有关联 REQ)，但仍同步 roadmap (如关联)。
+#### Spike 结论传递规则
+
+当 `origin_type: origin_spike` 时，cc-feat **直接继承** spike 的已验证结论，无需重新验证：
+
+1. **读取 spike 文档**: 从 `spikes/{spike-slug}-spike.md` 提取"可复用结论"章节
+2. **写入 design.md**: 在"实现要点"中引用 spike 结论，标注 `[spike-validated]`
+3. **跳过重复验证**: cc-review 遇到 `[spike-validated]` 标注的项，跳过该技术可行性审查
+4. **约束必须遵守**: spike 发现的"实现约束"必须在 impl 中严格遵守
+
+**design.md 引用格式**:
+```markdown
+### 要点: {标题}
+- 方案可行性: [spike-validated] {spike结论摘要} (见 spikes/{slug}-spike.md)
+- 实现约束: {来自spike的约束}
+```
+
+> 非 REQ 驱动的 feat 在 feat-accept 通过后，不更新 road-map status (因为没有关联)，但仍同步 road-map (如关联)。
 
 ---
 
@@ -86,7 +103,7 @@ design.md 必须包含:
 | 需求不清 | ↩ 回退 cc-req 补充具体缺失点 |
 | 设计不可行 | ↩ 回退 feat-design 修改 |
 | 发现 bug | → 分支创建 issue |
-| 发现好模式 | → 触发 cc-kb 记录 pattern (不中断主流程) |
+| 发现好模式 | → 写 kb/raw/ 记录 pattern (不中断主流程) |
 
 **设计-实现小循环** (迭代是常态):
 
@@ -118,7 +135,7 @@ must_have:
 
 | 结果 | 动作 |
 |------|------|
-| ✅ 通过 | `meta.status: done`; 更新REQ `status: implemented`; 同步roadmap |
+| ✅ 通过 | `meta.status: done`; 更新road-map `status: implemented`; 同步road-map |
 | ❌ 不通过 | ↩ 回退 feat-impl 或 feat-design |
 
 **验收后**: 触发 **cc-review**
@@ -144,7 +161,7 @@ must_have:
 - ✅ 全部通过 → 进入 feat-accept
 - ❌ 有 Critical/High 问题 → **阻止验收**，必须修复后重检
 
-> 安全检查增量传递: cc-review Axis 2 将读取 `security_check` 字段跳过已通过项。详见 `cc/SKILL.md` § 安全检查增量传递。
+> 安全检查增量传递: cc-review Axis 2 将读取 impl-checklist.yaml 的 `security_check` 字段跳过已通过项。
 
 ---
 

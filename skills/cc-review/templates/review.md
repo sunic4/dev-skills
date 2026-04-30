@@ -48,9 +48,9 @@ action_items:
 
 | verdict | 含义 | 下一步 |
 |---------|------|--------|
-| approved | 无阻塞性问题 | 进入 ship |
-| request_changes | 有 should/must 级别问题 | 修复后必须 re-review |
-| rejected | 严重问题（correctness <2 或 security must） | 打回重做 |
+| approved | 无阻塞性问题 | 流程完成，可发布 |
+| request_changes | 有 should/must 级别问题 | 回 cc-feat-impl 修复，修复后 re-review |
+| rejected | 严重问题（correctness <2 或 security must） | 回 cc-feat-design 重新设计 |
 
 ## 五轴评分参考
 

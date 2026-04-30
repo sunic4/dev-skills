@@ -1,6 +1,7 @@
 ---
 name: "cc-req"
-description: "需求收集与分析：简单需求→需求文档；复杂需求→拆解为子feature清单+接口契约。"
+description: "需求收集与分析。简单→文档；复杂→拆解子feature+接口契约。"
+triggers: [需求, 功能需求, 用户故事, 需求分析, 需求文档]
 ---
 
 # Req - 需求管理与规划
@@ -84,7 +85,7 @@ P2（可以有）: 手机验证码登录、记住登录状态
 
 ### Step 4: 输出需求文档
 
-输出到 `req/{slug}.md`
+输出到 `road-map/{slug}.md`
 
 Frontmatter:
 ```yaml
@@ -158,7 +159,7 @@ stale: false
 
 ### Step 5: 拆子 Feature 清单
 
-生成 `req/{slug}.yaml`:
+生成 `road-map/{slug}.yaml`:
 
 ```yaml
 features:
@@ -196,7 +197,7 @@ shared_tasks:
 
 ### Step 6: 输出结构
 
-输出到 `req/{slug}.md` + `{slug}.yaml`
+输出到 `road-map/{slug}.md` + `{slug}.yaml`
 
 ```markdown
 ---
@@ -245,7 +246,7 @@ stale: false
 
 ## 变更传播
 
-变更传播核心机制详见 cc/SKILL.md "变更传播机制"。
+变更传播核心机制详见 AGENTS.md § 变更传播机制。
 
 REQ 特有传播规则:
 1. 更新自身 `updated`，重大变更设 `stale: true`
@@ -279,8 +280,8 @@ REQ 特有传播规则:
 | 项目 | 格式 |
 |------|------|
 | 原始输入 | `raw/inputs/{slug}YYYYMMDDHHMMSS.md` |
-| 需求文档 | `req/{slug}.md` (含 frontmatter) |
-| 子feature清单 | `req/{slug}.yaml` (复杂需求时) |
+| 需求文档 | `road-map/{slug}.md` (含 frontmatter) |
+| 子feature清单 | `road-map/{slug}.yaml` (复杂需求时) |
 | ID 命名 | kebab-case 语义化 |
 
 ## 常见问题

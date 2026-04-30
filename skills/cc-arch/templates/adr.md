@@ -9,7 +9,7 @@ type: architecture
 status: accepted
 title: "{ADR 标题}"
 depends_on:
-  - "req/{slug}.md"
+  - "road-map/{slug}.md"
 created: "YYYY-MM-DD HH:MM"
 updated: "YYYY-MM-DD HH:MM"
 stale: false
@@ -21,7 +21,7 @@ stale: false
 
 ## 背景
 {为什么需要做这个决策？当前的问题或驱动力是什么？}
-{引用需求约束：来自 `req/{slug}.md` 的哪些约束驱动了此决策}
+{引用需求约束：来自 `road-map/{slug}.md` 的哪些约束驱动了此决策}
 
 ## 决策
 {最终选择了什么方案？一句话概括}
@@ -55,7 +55,7 @@ type: architecture
 status: accepted
 title: "{模块名} 模块设计"
 depends_on:
-  - "req/{slug}.md"
+  - "road-map/{slug}.md"
 created: "YYYY-MM-DD HH:MM"
 updated: "YYYY-MM-DD HH:MM"
 stale: false

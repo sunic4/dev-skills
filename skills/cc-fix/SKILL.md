@@ -1,6 +1,7 @@
 ---
 name: "cc-fix"
-description: "Bug诊断与修复：问题报告→根因分析→修复实施→回归验证。"
+description: "Bug诊断与修复。问题报告→根因分析→修复→回归验证。"
+triggers: [bug, 修复, 报错, 异常, 崩溃, 问题, 出错, debug]
 ---
 
 # Fix - 问题修复
@@ -156,7 +157,7 @@ reported → analyzing → fixing → fixed → closed
 | reported → analyzing | 信息足够开始排查 |
 | analyzing → fixing | 根因已定位，方案已确定 |
 | fixing → fixed | 代码已提交，回归检查通过 |
-| fixed → closed | 确认无复发，触发 cc-kb 记录 lesson |
+| fixed → closed | 确认无复发，写 kb/raw/ 记录 lesson |
 | any → reopened | 问题复现或修复不完整 |
 
 ### Reopened 流程
@@ -183,9 +184,9 @@ reopen_reasons:
 | 场景 | 动作 | 目标技能 |
 |------|------|---------|
 | 修复范围超出边界 | → 转为 `feat` | 在 depends_on 中关联 ISS-ID |
-| 修复涉及需求变更 | → 更新 `req` | 同步 REQ 文档的 frontmatter |
+| 修复涉及需求变更 | → 更新 `road-map` | 同步 road-map 文档的 frontmatter |
 | 修复涉及架构调整 | → 调用 `arch` | 记录 ADR |
-| 修复后有普遍性教训 | → **触发 `kb`** (必须, 见 `cc/SKILL.md` KB触发表) | 写 lesson |
+| 修复后有普遍性教训 | → **写 kb/raw/** (见 cc-kb Raw 写入规范) | 写 lesson |
 | 修复后需完整验收 | → **可选触发 `feat-accept`** | 跑完整流程 |
 
 ---

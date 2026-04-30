@@ -6,17 +6,18 @@ dev-skills 是一套结构化开发工作流技能体系，通过清晰的职责
 
 ---
 
-## 技能清单 (6个)
+## 技能清单 (8个)
 
 | 技能 | 用途 | 输出位置 |
 |------|------|---------|
-| **cc-init** | 项目初始化 | `codestyle.md` + `AGENTS.md` |
-| **cc-req** | 需求收集/分析/规划 | `wiki/requirements/` |
-| **cc-arch** | 架构设计 + ADR | `wiki/architecture/` |
-| **cc-feat** | 特性开发 (design→impl→accept) | `wiki/features/` |
-| **cc-fix** | Bug修复 (report→analyze→fix) | `wiki/issues/` |
-| **cc-review** | 五轴代码审查 | `wiki/features/*/review-report.yaml` |
-| **cc-kb** | 知识沉淀整理 | `wiki/knowledge/` |
+| **cc-init** | 项目初始化 | `raw/` + `codestyle.md` + `AGENTS.md` |
+| **cc-req** | 需求收集/分析/规划 | `road-map/` |
+| **cc-arch** | 架构设计 + ADR | `arch/` |
+| **cc-feat** | 特性开发 (design→impl→accept) | `features/` |
+| **cc-fix** | Bug修复 (report→analyze→fix) | `issues/` |
+| **cc-review** | 五轴代码审查 | `features/*/review-report.yaml` |
+| **cc-kb** | 知识沉淀整理 | `kb/` |
+| **cc-retro** | 项目复盘与技能评估 | `kb/raw/` + retro report |
 
 ---
 
@@ -25,11 +26,12 @@ dev-skills 是一套结构化开发工作流技能体系，通过清晰的职责
 ```
 wiki/
 ├── raw/                  # 原始输入
-├── requirements/         # 需求文档
-├── architecture/         # 架构设计 (overview + adrs)
-├── features/             # 特性开发
-├── issues/              # 问题修复
-└── knowledge/           # 知识库
+├── road-map/             # 需求文档 (cc-req)
+├── arch/                 # 架构设计 (cc-arch, overview + adrs + modules)
+├── features/             # 特性开发 (cc-feat)
+├── issues/               # 问题修复 (cc-fix)
+├── kb/                   # 知识库 (cc-kb)
+└── spikes/               # 技术验证 (cc-arch spike)
 ```
 
 ---
@@ -40,6 +42,7 @@ wiki/
 新项目:     cc-req → cc-arch → cc-init → cc-feat → cc-review
 简单功能:   cc-req → cc-feat → cc-review
 Bug修复:    cc-fix → cc-review
+迭代复盘:   cc-retro (项目结束/版本发布后)
 ```
 
 ---
@@ -57,15 +60,21 @@ id/type/depends_on/created/updated/stale  # 自动推断或生成
 
 | type | status 枚举 |
 |------|------------|
-| requirement | draft → approved → implemented → deprecated |
+| requirement | draft → planning → approved → implemented → deprecated |
 | architecture | proposed → accepted → implemented → superseded |
 | feature | designing → implementing → done → abandoned |
-| issue | reported → analyzing → fixing → fixed → closed |
+| issue | reported → analyzing → fixing → fixed → closed → wontfix; reopened → analyzing |
+| spike | validated → failed |
 | knowledge | draft → verified |
 
 ---
 
 ## 全局执行守则
+
+### G0: 目录自建
+
+- 任何技能写入 wiki/ 子目录时，目录不存在则自动创建
+- 无需等待 cc-init 或 cc-arch 先行创建
 
 ### G1: 反重复输出
 
@@ -98,16 +107,81 @@ id/type/depends_on/created/updated/stale  # 自动推断或生成
 2. 下游读取 stale 文档 → **暂停 → 同步 → 继续**
 3. 不可跳过，不可仅警告
 
-## 重要
+## 技能规范
 
-- 明确技能定位与边界,保持单一职责原则,跨场景适用性要强
-- 命名清晰、简洁、动词化, 描述准确,
-- 技能描述: 包含技能的功能和使用场景,原则上不超过50字
-- 复用已有工具,技能
-- 技能内容,只包含:如何做? 遇到问题/错误如何处理? 
-- 认真考虑上下文腐烂问题, 
-    - 必要时优先增加 references 存放模板或tools 存放脚本(mjs)
-    - 可以考虑大段逻辑转场之类的是否可以考虑references,skill.md 只确保什么时候该怎么做
+### 技能设计原则
 
-- 逻辑/内容固定优先使用脚本/模板,不确定时,务必给出选项提问
-- 量化决策,禁止评分,时间等估算用于决策
+- 明确技能定位与边界，保持单一职责原则，跨场景适用性要强
+- 命名清晰、简洁、动词化，描述准确
+- 技能描述包含功能和使用场景，原则上不超过 50 字
+- 复用已有工具和技能，优先组合而非重复造轮子
+- 技能内容只包含：如何做？遇到问题/错误如何处理？
+- 认真考虑上下文腐烂问题
+
+### 技能编写规则
+
+#### Frontmatter 必须包含
+
+```yaml
+---
+name: {技能名}            # 全小写、连字符分隔，如 cc-feat
+description: {≤50字}     # 功能一句话说使用场景
+triggers: []             # 触发关键词列表，增强隐式触发准确性
+---
+```
+
+#### 产出约定
+
+每个技能必须明确其产出位置，遵循以下规则：
+
+- 技能产出目录与技能名对应，不可混用
+- 决策类产物（如架构决策、功能设计）必须写入对应 wiki 子目录
+- 产出文件须包含完整的 frontmatter 元数据
+- 技能退出前必须自检：产出清单是否齐全？
+
+#### 触发机制
+
+| 触发方式 | 说明 |
+|----------|------|
+| 显式命令 | 用户输入 `/skill-name` 精确调用 |
+| 隐式触发 | 用户输入匹配 triggers 关键词列表 |
+| 流程委托 | 上游技能完成时自动触发下游技能 |
+
+#### 技能组合规则
+
+- **调用语法**：`/skill-name` 显式委托任务
+- **依赖声明**：在 frontmatter 的 `depends_on` 中声明依赖链
+- **冲突处理**：后调用的技能覆盖先前的同名决策（Last-Write-Wins），变更必须记录
+- **禁止循环依赖**：技能依赖关系必须是有向无环图（DAG）
+
+#### 上下文交接协议
+
+- 技能完成后，关键决策和中间产物写入目标 wiki 目录
+- 使用 frontmatter 的 `status` / `stale` 标记文档状态
+- 下游技能读取时若发现 `stale: true`，**必须**先同步再继续
+- 交接时须明确传递：决策结论、待解决问题、依赖假设
+
+#### References 管理规范
+
+- references/ 目录下的模板须标注适用版本范围
+- 超过 3 个模板时，须说明各自的适用场景
+- references 本身的 stale 由父技能负责维护
+- 大段逻辑转场优先放入 references，skill.md 只确保"什么时候该怎么做"
+
+### 技能分类
+
+| 分类 | 技能 | 说明 |
+|------|------|------|
+| 阶段型 | cc-req → cc-arch → cc-feat → cc-review | 按开发流程顺序执行 |
+| 响应型 | cc-fix | 被动触发，处理问题报告 |
+| 支撑型 | cc-init, cc-kb, cc-retro | 独立于流程，提供基础设施/知识管理/复盘 |
+
+### 目录参考
+
+```
+{skill-name}/
+├── SKILL.md                # 必需（含 YAML frontmatter + Markdown 指令）
+├── scripts/                # 可选（可执行脚本，优先 mjs 跨平台）
+├── references/             # 可选（参考文档、模板）
+└── assets/                 # 可选（模板、图片等资源）
+```

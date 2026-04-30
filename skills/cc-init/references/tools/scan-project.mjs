@@ -88,7 +88,7 @@ function scanProject(wikiDir = 'wiki') {
   };
 
   result.requirements_count = scanFiles(
-    join(wikiDir, 'requirements'),
+    join(wikiDir, 'road-map'),
     /\.md$/
   ).length;
 
@@ -98,7 +98,7 @@ function scanProject(wikiDir = 'wiki') {
   ).length;
 
   result.roadmaps_count = scanFiles(
-    join(wikiDir, 'roadmaps'),
+    join(wikiDir, 'road-map'),
     /items\.yaml$/
   ).length;
 
@@ -198,10 +198,10 @@ function projectDashboard(wikiDir = 'wiki') {
     return count;
   };
 
-  const reqDir = join(wikiDir, 'requirements');
+  const reqDir = join(wikiDir, 'road-map');
   const featDir = join(wikiDir, 'features');
   const issueDir = join(wikiDir, 'issues');
-  const roadmapDir = join(wikiDir, 'roadmaps');
+  const roadmapDir = join(wikiDir, 'road-map');
   const spikeDir = join(wikiDir, 'spikes');
   const deprecationDir = join(wikiDir, 'deprecations');
 

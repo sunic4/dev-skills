@@ -1,6 +1,7 @@
 ---
 name: "cc-retro"
-description: "项目复盘与技能评估：使用统计→问题识别→改进追踪→知识沉淀。"
+description: "项目复盘与技能评估。统计→问题识别→改进→知识沉淀。"
+triggers: [复盘, 回顾, 总结, retro, 改进, 迭代总结]
 ---
 
 # Retro - 项目复盘
@@ -24,7 +25,7 @@ description: "项目复盘与技能评估：使用统计→问题识别→改进
 |------|--------|------|
 | 各技能使用次数 | wiki/ 各目录文件数 | 基础覆盖度 |
 | **各技能跳过率和原因** | 用户反馈 + 流程中断点 | 流程优化依据 |
-| **端到端周期时间** | REQ created → FEAT done 的时间差 | 流程效率指标 |
+| **端到端周期时间** | road-map created → FEAT done 的时间差 | 流程效率指标 |
 | **回退次数** | design.md 中"设计变更记录"的数量 | 需求/设计质量指标 |
 | **stale 文档数** | `stale: true` 的文档数 | 变更传播效率 |
 | **KB 检索命中次数** | 各技能 KB 检索是否找到相关经验 | 知识库价值指标 |
@@ -48,6 +49,11 @@ description: "项目复盘与技能评估：使用统计→问题识别→改进
 | cc-req | 有需求文档？含验收标准？ |
 | cc-feat | 模式选择正确？checklist 完成？ |
 | cc-review | 有 verdict？request_changes 已追踪？ |
+
+**流程衔接检查方法**:
+1. 读取 AGENTS.md § 标准工作流，确定当前项目应走的流程
+2. 扫描 wiki/ 各目录，对比实际产出与流程预期产出
+3. 缺失环节标记为"流程断裂"，分析原因（不知晓/跳过/不适用）
 
 > 代码质量审计不是 retro 的职责。如需评估代码质量，引用 **cc-review** 技能的结论。
 
@@ -132,9 +138,9 @@ next_actions:
 | 改进项类型 | 转化为 | 追踪方式 |
 |----------|--------|---------|
 | 技能定义改进 | 修改对应 SKILL.md | 下次 retro 检查是否已修改 |
-| 流程不适配 | 创建新的 cc-req 需求 | 在 `req/` 中追踪 |
+| 流程不适配 | 创建新的 cc-req 需求 | 在 `road-map/` 中追踪 |
 | 工具 Bug | 创建 issue | 在 `issues/` 中追踪 |
-| 知识缺失 | 触发 cc-kb 补充 | 检查 `kb/` 是否已补充 |
+| 知识缺失 | 写 kb/raw/ 补充 | 检查 `kb/` 是否已补充 |
 
 **强制闭环机制**:
 1. 本次 retro 的改进项，写入 `next_actions` 时**必须标注责任人**（用户/技能/工具）
@@ -149,13 +155,13 @@ next_actions:
     target: "cc-feat/SKILL.md"
     status: pending     # pending | done | escalated
     from_retro: "2026-04-14"  # 来源复盘日期
-    origin_retro: "2026-04-14"  # 来源复盘日期 (用于 REQ 关联)
-    req_created: false   # 是否已创建关联 REQ
+    origin_retro: "2026-04-14"  # 来源复盘日期 (用于 road-map 关联)
+    req_created: false   # 是否已创建关联 road-map
 ```
 
-### 改进项 → REQ 转化通道
+### 改进项 → Road-map 转化通道
 
-当改进项 `category` 为 `process_gap` 或 `skill_definition` 时，提供转化为正式 REQ 的通道：
+当改进项 `category` 为 `process_gap` 或 `skill_definition` 时，提供转化为正式 road-map 的通道：
 
 **转化条件** (任一满足):
 - 改进项涉及新功能/新流程需求
@@ -165,15 +171,15 @@ next_actions:
 **转化流程**:
 1. retro 报告中标记 `req_candidate: true`
 2. 用户确认后，调用 cc-req 创建需求文档
-3. 新 REQ 的 frontmatter 自动填充 `origin_retro: "{retro-date}"`
+3. 新 road-map 的 frontmatter 自动填充 `origin_retro: "{retro-date}"`
 4. 更新 retro 报告的 `next_actions.req_created: true` + `req_id: "{slug}"`
-5. 下次 retro Step 2 检查该 REQ 的实施状态
+5. 下次 retro Step 2 检查该 road-map 的实施状态
 
 ## 与其他技能的关系
 
 | 技能 | 关系 |
 |------|------|
-| cc | 读取路由表，检查流程衔接是否正确 |
+| AGENTS.md | 参照标准工作流，检查流程衔接是否正确 |
 | cc-kb | **写入 raw/**（仅原始记录），不越权生成正式条目 |
 | cc-review | **引用 cc-review 结论**评估代码质量，不做重复审计 |
 | cc-init | 检查 AGENTS.md 索引完整性 |

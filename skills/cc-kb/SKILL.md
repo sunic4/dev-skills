@@ -1,6 +1,7 @@
 ---
 name: "cc-kb"
-description: "知识库唯一整理者：raw去重合并→质检→发布正式目录。"
+description: "知识库管理。raw去重→质检→发布正式目录。"
+triggers: [知识, 经验, 教训, 模式, pattern, lesson, 记下来]
 ---
 
 # KB - 知识库
@@ -17,7 +18,7 @@ KB 是知识流的**唯一整理者**（curator）。其他技能只负责写 ra
 ## 目录结构
 
 ```
-wiki/kb/
+kb/
 ├── raw/              # 阶段1: 写入区（不可被其他技能检索）
 ├── patterns/         # 阶段2: 正式发布区
 ├── lessons/
@@ -95,16 +96,16 @@ Grep "cross_project: true" in {已有项目}/kb/**/*.md
 1. 写入 raw/（如常）
 2. **立即**执行去重检查（Step 1）
 3. 快速质量评估：只检查 Q1(有标题) + Q3(有"为什么") → 通过即可发布
-4. 发布时标注 `verified: false` + `{待完善: 缺少代码示例/适用场景}`
-5. 正常整理时再补充缺失项，更新 `verified: true`
+4. 发布时标注 `status: draft` + `{待完善: 缺少代码示例/适用场景}`
+5. 正常整理时再补充缺失项，更新 `status: verified`
 
 | 标准 | 正式发布 | 快速发布 |
 |------|---------|---------|
 | 质量门槛 | Q1-Q5 全通过 | Q1 + Q3 通过即可 |
-| verified | true | **false** |
+| status | verified | **draft** |
 | 代码示例 | 必须 | 可缺（标注 `{待完善}`） |
 | 适用场景 | 必须 | 可缺 |
-| 可被其他技能检索 | ✅ | ✅（标注 `verified: false` 提醒读者） |
+| 可被其他技能检索 | ✅ | ✅（标注 `status: draft` 提醒读者） |
 
 ## 整理流程
 
@@ -170,13 +171,14 @@ Grep "{标题关键词}" in kb/{对应子目录}/*.md
 ```markdown
 ---
 title: "{标题}"
+type: knowledge
+status: verified
 category: pattern | lesson | decision | reference
 source: "{来源技能} - {日期}"
 see_also: []
 supersedes: ""
 created: "YYYY-MM-DD"
 updated: "YYYY-MM-DD"
-verified: true
 ---
 
 # {标题}
@@ -247,7 +249,16 @@ verified: true
 ```
 1. 从当前任务提取关键词（技术名、问题类型、模块名）
 2. Grep `kb/{对应子目录}/*.md` 的标题和关键词
-3. 如有时效性快速发布的条目(verified: false)，提示"此经验尚未完善验证，仅供参考"
+3. 如有时效性快速发布的条目(status: draft)，提示"此经验尚未完善验证，仅供参考"
 ```
 
-> **KB 读写矩阵详见 `cc/SKILL.md` § KB读写矩阵**（权威定义，此处不重复）。
+> **KB 读写矩阵**（权威定义）:
+
+| 技能 | 写入 raw/ | 读取正式目录 |
+|------|----------|-------------|
+| cc-feat | pattern, lesson | patterns/, lessons/ |
+| cc-fix | lesson | lessons/ |
+| cc-arch | decision | adrs/, patterns/ |
+| cc-review | - | lessons/ |
+| cc-retro | lesson, pattern | - |
+| cc-kb | (整理发布) | All |

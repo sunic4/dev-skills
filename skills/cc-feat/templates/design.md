@@ -9,7 +9,7 @@ type: feature
 status: designing
 title: "{标题}"
 depends_on:
-  - "req/{slug}.md"
+  - "road-map/{slug}.md"
   - "arch/adrs/{slug}.md"
 created: "YYYY-MM-DD HH:MM"
 updated: "YYYY-MM-DD HH:MM"
@@ -49,7 +49,7 @@ stale: false
 ```
 
 ## 数据流
-> 仅描述本模块内部的数据流转。跨模块数据流引用 `arch/shared-types.md` 和 roadmap 接口契约。
+> 仅描述本模块内部的数据流转。跨模块数据流引用 `arch/shared-types.md` 和 road-map 接口契约。
 {关键数据流转过程，ASCII 图或步骤描述}
 
 ```

@@ -1,6 +1,6 @@
 # Req 输出文档结构
 
-以下为 `req/{slug}.md` 的标准章节结构。
+以下为 `road-map/{slug}.md` 的标准章节结构。
 
 ```markdown
 ---
@@ -62,7 +62,7 @@ stale: false
 
 ## 关联文档
 - 架构: {arch 文档路径, 如已创建}
-- Roadmap: {roadmap 路径, 如已创建}
+- Roadmap: {road-map 路径, 如已创建}
 ```
 
 **规则**:
