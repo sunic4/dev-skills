@@ -1,6 +1,6 @@
 # Feat Design 文档结构
 
-以下为 `{project-path}/wiki/features/{slug}YYYYMMDDHHMM/{slug}-design.md` 的标准章节结构。
+以下为 `{project-path}/wiki/features/{slug}/index.md` 的标准章节结构。
 
 ```markdown
 ---

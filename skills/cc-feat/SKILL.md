@@ -66,7 +66,7 @@ design.md 引用格式：
 ### 1. feat-design 技术设计
 
 **输入**: REQ + ARCH (或替代来源)  
-**输出**: `{project-path}/wiki/features/{slug}YYYYMMDDHHMM/{slug}-design.md` + `impl-checklist.yaml`
+**输出**: `{project-path}/wiki/features/{slug}/index.md` + `impl-checklist.yaml`
 
 design.md 必填内容：
 
@@ -170,7 +170,7 @@ must_have:
 
 | 产物 | 路径 | 时机 |
 |------|------|------|
-| Feature 目录 | `{project-path}/wiki/features/{slug}YYYYMMDDHHMM/` | design 开始时创建 |
-| 设计文档 | `{slug}-design.md` | feat-design 完成 |
+| Feature 目录 | `{project-path}/wiki/features/{slug}/` | design 开始时创建 |
+| 设计文档 | `index.md` | feat-design 完成 |
 | 进度追踪 | `impl-checklist.yaml` | design 创建，impl 持续更新 |
 | 审查报告 | `{slug}-review-report.yaml` | accept 后由 review-generate.mjs 生成 |
